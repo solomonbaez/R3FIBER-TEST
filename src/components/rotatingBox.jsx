@@ -7,6 +7,8 @@ function RotatingBox({position}) {
 
     useFrame(( state, delta ) => {
         myMesh.current.rotation.x += delta
+        myMesh.current.rotation.y += (delta * 2)
+        myMesh.current.rotation.z = Math.sin(state.clock.elapsedTime);
     })
 
     return (
