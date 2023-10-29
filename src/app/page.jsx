@@ -22,17 +22,7 @@ const shuffle = (accent = 0) => [
 
 export default function App() {
   return(
-    <div className="container">
-      <div className="nav">
-        <h1 className="label" />
-        <div />
-        <span className="caption" />
-        <div />
-        <a href="https://lusion.co/">
-          <div className="button">VISIT LUSION</div>
-        </a>
-        <div className="button gray">///</div>
-      </div>
+    <div className="h-screen w-screen">
       <Scene style={{ borderRadius: 20 }} />
     </div>
   )
