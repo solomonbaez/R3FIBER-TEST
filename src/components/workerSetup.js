@@ -1,1 +1,0 @@
-export const worker = new Worker(new URL('@/components/worker', import.meta.url), { type: 'module' })
