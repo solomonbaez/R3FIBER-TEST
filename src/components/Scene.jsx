@@ -54,15 +54,15 @@ function Scene(props) {
           <Lightformer form="circle" intensity={2} rotation-y={-Math.PI / 2} position={[10, 1, 0]} scale={8} />
         </group>
       </Environment>
-      <Text
+      {/* <Text
         scale={[1, 1, 2]}
         color="black" // default
         anchorX="center" // default
         anchorY="middle" // default
       >
         HELLO WORLD
-      </Text>
-      <Stats />
+      </Text> */}
+      {/* <Stats /> */}
     </>
   )
 }
