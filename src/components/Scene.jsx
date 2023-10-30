@@ -27,7 +27,7 @@ export default function AppScene() {
 }
 
 function Scene(props) {
-  const [accent, click] = useReducer((state) => ++state % accents.length, 0)
+  const [accent] = useReducer((state) => ++state % accents.length, 0)
   const connectors = useMemo(() => shuffle(accent), [accent])
   return (
     <>

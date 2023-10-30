@@ -1,4 +1,6 @@
+import dynamic from "next/dynamic";
 import { render } from '@react-three/offscreen'
-import AppScene from "@/components/Scene.jsx"
+
+const AppScene = dynamic(() => import("./Scene"), { ssr: false })
 
 render(<AppScene />)
