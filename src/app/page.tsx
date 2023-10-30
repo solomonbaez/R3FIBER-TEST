@@ -15,17 +15,22 @@ import { Canvas } from '@react-three/offscreen';
 const AppScene = dynamic(() => import('@/components/Scene'), { ssr: false });
 
 export default function App() {
-  const [worker, setWorker] = useState<Worker | null>(null); 
+  const [worker, setWorker] = useState<Worker | null>(null); // Initialize the worker as null
 
   useEffect(() => {
+    // Create the web worker when the component mounts
     const workerInstance = new Worker(new URL('@/components/worker', import.meta.url), { type: 'module' });
+
+    // Set the worker instance in the component's state
     setWorker(workerInstance);
 
+    // Clean up the worker when the component unmounts
     return () => {
       workerInstance.terminate();
     };
   }, []);
 
+  // Render the Canvas component once the worker is initialized
   return (
     <>
       <div className="h-screen w-screen flex items-center justify-center bg-black">
