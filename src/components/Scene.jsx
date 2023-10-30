@@ -1,8 +1,7 @@
-"use client";
 import * as THREE from 'three'
 import { useRef, useReducer, useMemo } from 'react'
-import { extend, useFrame } from '@react-three/fiber'
-import { useGLTF, MeshTransmissionMaterial, Environment, Lightformer } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { useGLTF, MeshTransmissionMaterial, Environment, Lightformer, Stats, Text } from '@react-three/drei'
 import { CuboidCollider, BallCollider, Physics, RigidBody } from '@react-three/rapier'
 import { EffectComposer, N8AO } from '@react-three/postprocessing'
 import { easing } from 'maath'
@@ -54,6 +53,15 @@ function Scene(props) {
           <Lightformer form="circle" intensity={2} rotation-y={-Math.PI / 2} position={[10, 1, 0]} scale={8} />
         </group>
       </Environment>
+      <Text
+        scale={[1, 1, 2]}
+        color="black" // default
+        anchorX="center" // default
+        anchorY="middle" // default
+      >
+        HELLO WORLD
+      </Text>
+      <Stats />
     </>
   )
 }
