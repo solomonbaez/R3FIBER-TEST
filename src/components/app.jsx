@@ -3,7 +3,7 @@ import { lazy } from "react";
 import { Canvas } from "@react-three/offscreen"
 
 const AppScene = lazy(() => import("./Scene"))
-const worker = new Worker(new URL("./worker", import.meta.url), { type: "module" })
+const worker = new Worker(new URL("./worker", import.meta.url))
 
 export default function App() {
   return (
@@ -17,7 +17,7 @@ export default function App() {
             />
         </div>
         <div className="h-screen w-screen flex items-center justify-center bg-black-600">
-            <h1 className="text-8xl text-white">Hi, I&apos; Solomon</h1>
+            <h1 className="text-8xl text-white">Hello, World!</h1>
         </div>
     </main>
   )
