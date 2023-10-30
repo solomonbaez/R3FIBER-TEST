@@ -27,8 +27,8 @@ export default function AppScene() {
 }
 
 function Scene(props) {
-//   const [accent] = useReducer((state) => ++state % accents.length, 0)
-//   const connectors = useMemo(() => shuffle(accent), [accent])
+  const [accent] = useReducer((state) => ++state % accents.length, 0)
+  const connectors = useMemo(() => shuffle(accent), [accent])
   return (
     <>
       <color attach="background" args={['#141622']} />
@@ -36,7 +36,7 @@ function Scene(props) {
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
       <Physics /*debug*/ gravity={[0, 0, 0]}>
         <Pointer />
-        {/* {connectors.map((props, i) => <Connector key={i} {...props} />) /* prettier-ignore */}
+        {connectors.map((props, i) => <Connector key={i} {...props} />) /* prettier-ignore */}
         <Connector position={[10, 10, 5]}>
           <Model>
             <MeshTransmissionMaterial clearcoat={1} thickness={0.1} anisotropicBlur={0.1} chromaticAberration={0.1} samples={8} resolution={512} />
@@ -69,7 +69,7 @@ function Scene(props) {
 
 function Connector({ position, children, vec = new THREE.Vector3(), scale, r = THREE.MathUtils.randFloatSpread, accent, ...props }) {
   const api = useRef()
-  const pos = useMemo(() => position || [r(10), r(10), r(10)], [])
+  const pos = useMemo(() => position || [r(10), r(10), r(10)], [position, r])
   useFrame((state, delta) => {
     delta = Math.min(0.1, delta)
     api.current?.applyImpulse(vec.copy(api.current.translation()).negate().multiplyScalar(0.2))
