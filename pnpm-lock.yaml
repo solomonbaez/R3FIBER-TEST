@@ -23,6 +23,9 @@ dependencies:
   '@types/lodash':
     specifier: ^4.14.200
     version: 4.14.200
+  '@types/smoothscroll-polyfill':
+    specifier: ^0.3.2
+    version: 0.3.2
   '@types/three':
     specifier: ^0.158.0
     version: 0.158.0
@@ -44,6 +47,9 @@ dependencies:
   react-dom:
     specifier: ^18
     version: 18.2.0(react@18.2.0)
+  smoothscroll-polyfill:
+    specifier: ^0.4.4
+    version: 0.4.4
   three:
     specifier: ^0.157.0
     version: 0.157.0
@@ -576,6 +582,10 @@ packages:
 
   /@types/scheduler@0.16.5:
     resolution: {integrity: sha512-s/FPdYRmZR8SjLWGMCuax7r3qCWQw9QKHzXVukAuuIJkXkDRwp+Pu5LMIVFi0Fxbav35WURicYr8u1QsoybnQw==}
+
+  /@types/smoothscroll-polyfill@0.3.2:
+    resolution: {integrity: sha512-NqOjJ9jXwRUzw2+Kx/JcguVjAf9DQRxdXW5c2T+WXvD1gG265ePEHh7hDJHk6DpQa6U+HhLR6MVpfACAl7zl9g==}
+    dev: false
 
   /@types/stats.js@0.17.2:
     resolution: {integrity: sha512-j1oI+BOPiAAAKFysNNutE9aAIjvHqqILubCs2EeHKc19pi4uybaGAgBfLXsCgJYcyKWkiilEvl8CkFF/SL+baA==}
@@ -2782,6 +2792,10 @@ packages:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
     dev: true
+
+  /smoothscroll-polyfill@0.4.4:
+    resolution: {integrity: sha512-TK5ZA9U5RqCwMpfoMq/l1mrH0JAR7y7KRvOBx0n2869aLxch+gT9GhN3yUfjiw+d/DiF1mKo14+hd62JyMmoBg==}
+    dev: false
 
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}

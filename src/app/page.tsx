@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import _debounce from "lodash/debounce"
 import _throttle from "lodash/throttle"
+import smoothscroll from "smoothscroll-polyfill";
 const App = dynamic(() => import("@/components/app"), { ssr: false });
 
 const components: React.JSX.Element[] = [
@@ -27,6 +28,8 @@ const Home: React.FC = () => {
   const debounceScroll = useRef<() => void>()
 
   useEffect(() => {
+
+    smoothscroll.polyfill()
     const windowHeight = window.innerHeight;
 
     const handleScroll = () => {
@@ -37,13 +40,11 @@ const Home: React.FC = () => {
       if (newIndex.current !== visibleComponents[0]) {
         const newVisibleComponents = [newIndex.current, newIndex.current + 1, newIndex.current + 2];
         setVisibleComponents(newVisibleComponents);
-        window.scrollTo(0,0)
       }
     };
 
     debounceScroll.current = _debounce(handleScroll, 100);
     const handleDebounce = debounceScroll.current
-
     const handleThrottle = _throttle(handleDebounce, 100)
     window.addEventListener('scroll', handleThrottle);
     return () => {

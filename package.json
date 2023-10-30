@@ -15,6 +15,7 @@
     "@react-three/postprocessing": "^2.15.8",
     "@react-three/rapier": "^1.1.2",
     "@types/lodash": "^4.14.200",
+    "@types/smoothscroll-polyfill": "^0.3.2",
     "@types/three": "^0.158.0",
     "lodash": "^4.17.21",
     "maath": "^0.10.4",
@@ -22,6 +23,7 @@
     "postprocessing": "^6.33.2",
     "react": "^18",
     "react-dom": "^18",
+    "smoothscroll-polyfill": "^0.4.4",
     "three": "^0.157.0"
   },
   "devDependencies": {

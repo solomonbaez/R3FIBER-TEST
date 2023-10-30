@@ -98,16 +98,34 @@ function Pointer({ vec = new THREE.Vector3() }) {
   )
 }
 
-function Model({ children, color = 'white', roughness = 0, ...props }) {
-  const ref = useRef()
-  const { nodes, materials } = useGLTF('/c-transformed.glb')
-  useFrame((state, delta) => {
-    easing.dampC(ref.current.material.color, color, 0.2, delta)
-  })
+// function Model({ children, color = 'white', roughness = 0, ...props }) {
+//   const ref = useRef()
+//   const { nodes, materials } = useGLTF('/c-transformed.glb')
+//   useFrame((state, delta) => {
+//     easing.dampC(ref.current.material.color, color, 0.2, delta)
+//   })
+//   return (
+//     <mesh ref={ref} castShadow receiveShadow scale={10} geometry={nodes.connector.geometry}>
+//       <meshStandardMaterial metalness={0.2} roughness={roughness} map={materials.base.map} />
+//       {children}
+//     </mesh>
+//   )
+// }
+
+function Model(props) {
+  const { nodes, materials } = useGLTF("/c-cube.glb");
   return (
-    <mesh ref={ref} castShadow receiveShadow scale={10} geometry={nodes.connector.geometry}>
-      <meshStandardMaterial metalness={0.2} roughness={roughness} map={materials.base.map} />
-      {children}
-    </mesh>
-  )
+    <group {...props} dispose={null}>
+      <mesh
+        castShadow
+        receiveShadow
+        scale={1}
+        geometry={nodes.Cube.geometry}
+      >
+       <meshStandardMaterial metalness={0.2} roughness={0}/>
+      </mesh>
+    </group>
+  );
 }
+
+useGLTF.preload("/c-cube.glb");
