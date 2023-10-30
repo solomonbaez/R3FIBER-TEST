@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
+import _debounce from "lodash/debounce"
 const App = dynamic(() => import("@/components/app"), { ssr: false });
 
 const components: React.JSX.Element[] = [
@@ -18,6 +19,7 @@ const components: React.JSX.Element[] = [
 const Home: React.FC = () => {
   const [visibleComponents, setVisibleComponents] = useState<number[]>([0, 1]); // Start with the first two components.
   const newIndex = useRef<number>(0);
+  const debounceScroll = useRef<() => void>()
 
   useEffect(() => {
     const windowHeight = window.innerHeight;
@@ -33,9 +35,11 @@ const Home: React.FC = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    debounceScroll.current = _debounce(handleScroll, 200);
+    const handleDebounce = debounceScroll.current
+    window.addEventListener('scroll', handleDebounce);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleDebounce);
     };
   }, [visibleComponents]);
 
