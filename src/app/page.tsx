@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
+import _debounce from "lodash/debounce"
 const App = dynamic(() => import("@/components/app"), { ssr: false });
 
 const components: React.JSX.Element[] = [
@@ -16,10 +17,11 @@ const components: React.JSX.Element[] = [
 ]
 
 const Home: React.FC = () => {
-  const [visibleComponents, setVisibleComponents] = useState<number[]>([0, 1, 2]); // Start with the first two components.
-  var newIndex: number = 0
+  const [visibleComponents, setVisibleComponents] = useState<number[]>([0, 1]); // Start with the first two components.
 
+  const debouncedHandleScrollRef = useRef<() => void>();
   useEffect(() => {
+    var newIndex: number = 0
     const windowHeight = window.innerHeight;
 
     const handleScroll = () => {
@@ -28,14 +30,17 @@ const Home: React.FC = () => {
 
       // Ensure we always have two components in the visibleComponents array.
       if (newIndex !== visibleComponents[0]) {
-        const newVisibleComponents = [newIndex, newIndex + 1, newIndex + 2];
+        const newVisibleComponents = [newIndex, newIndex + 1];
         setVisibleComponents(newVisibleComponents);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    debouncedHandleScrollRef.current = _debounce(handleScroll, 100);
+    const debounceHandler = debouncedHandleScrollRef.current
+
+    window.addEventListener('scroll', debounceHandler);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', debounceHandler);
     };
   }, []);
 
