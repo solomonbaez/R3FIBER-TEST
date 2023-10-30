@@ -32,6 +32,7 @@ const Home: React.FC = () => {
       if (newIndex.current !== visibleComponents[0]) {
         const newVisibleComponents = [newIndex.current, newIndex.current + 1];
         setVisibleComponents(newVisibleComponents);
+        window.scrollTo(0,0)
       }
     };
 
