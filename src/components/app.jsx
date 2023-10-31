@@ -1,10 +1,10 @@
 "use client";
-import { lazy } from "react"
+import dynamic from "next/dynamic";
 // import { Canvas } from "@react-three/offscreen"
 import { Canvas } from "@react-three/fiber"
 
-const AppScene = lazy(() => import("./Scene"))
-const worker = new Worker(new URL('./worker.jsx', import.meta.url))
+const AppScene = dynamic(() => import("./Scene"), { ssr: false })
+// const worker = new Worker(new URL('./worker.jsx', import.meta.url))
 
 export default function App() {
   return (

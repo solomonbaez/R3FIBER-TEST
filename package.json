@@ -18,6 +18,7 @@
     "@types/lodash": "^4.14.200",
     "@types/smoothscroll-polyfill": "^0.3.2",
     "@types/three": "^0.158.0",
+    "geist": "^1.0.0",
     "gsap": "^3.12.2",
     "locomotive-scroll": "5.0.0-beta.8",
     "lodash": "^4.17.21",
