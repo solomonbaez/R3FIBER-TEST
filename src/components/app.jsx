@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 // import { Canvas } from "@react-three/offscreen"
-// import { Canvas } from "@react-three/fiber"
+import { Canvas } from "@react-three/fiber"
 
 // const AppScene = dynamic(() => import("./positivity"), {ssr: false})
 // const worker = new Worker(new URL('./worker.jsx', import.meta.url))

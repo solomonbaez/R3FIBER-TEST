@@ -1,12 +1,12 @@
 import * as THREE from "three"
 import { useRef } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Stats } from "@react-three/drei"
+import { Environment, Stats } from "@react-three/drei"
 import { EffectComposer, N8AO, SSAO } from "@react-three/postprocessing"
 import { BallCollider, Physics, RigidBody, CylinderCollider } from "@react-three/rapier"
 
 THREE.ColorManagement.legacyMode = false
-const sphereMaterial = new THREE.MeshLambertMaterial({ color: "#bbcbbc", emissive: "green" })
+const sphereMaterial = new THREE.MeshLambertMaterial({ color: "#bbcbbc", emissive: "red" })
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28)
 const spheres = [...Array(50)].map(() => ({ scale: [0.75, 0.75, 1, 1, 1.25][Math.floor(Math.random() * 5)] }))
 
@@ -58,7 +58,7 @@ export default function Index() {
         <Pointer />
         {spheres.map((props, i) => <Sphere key={i} {...props} />) /* prettier-ignore */}
       </Physics>
-      {/* <Environment files="/adamsbridge.hdr" /> */}
+      <Environment files="/adamsbridge.hdr" />
       <EffectComposer disableNormalPass multisampling={0}>
         <N8AO color="green" aoRadius={2} intensity={1} />
         <SSAO />
