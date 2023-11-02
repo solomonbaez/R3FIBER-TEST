@@ -20,7 +20,7 @@ const shuffle = (accent = 0) => [
   { color: accents[accent], roughness: 0.1, accent: true }
 ]
 
-export default function AppScene() {
+export default function Index() {
   return(
     <Scene style={{ borderRadius: 20 }} />
   )
