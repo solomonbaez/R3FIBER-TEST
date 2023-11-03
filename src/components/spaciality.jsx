@@ -1,16 +1,17 @@
 import * as THREE from "three"
 import { useRef } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Environment, MeshDistortMaterial, Stats, ContactShadows } from "@react-three/drei"
+import { Environment, Sphere, MeshDistortMaterial, Stats, ContactShadows } from "@react-three/drei"
 import { EffectComposer, N8AO, SSAO } from "@react-three/postprocessing"
 import { BallCollider, Physics, RigidBody, CylinderCollider } from "@react-three/rapier"
+import { LayerMaterial, Normal, Fresnel, Displace, Noise } from 'lamina'
 
 THREE.ColorManagement.legacyMode = false
 // const sphereMaterial = new THREE.MeshLambertMaterial({ color: "#bbcbbc", emissive: "red" })
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28)
-const spheres = [...Array(50)].map(() => ({ scale: [0.75, 0.75, 1, 1, 1.25][Math.floor(Math.random() * 5)] }))
+const spheres = [...Array(10)].map(() => ({ scale: [0.75, 0.75, 1, 1, 1.25][Math.floor(Math.random() * 5)] }))
 
-function Sphere({ vec = new THREE.Vector3(), scale, r = THREE.MathUtils.randFloatSpread }) {
+function LaminaSphere({ vec = new THREE.Vector3(), scale, r = THREE.MathUtils.randFloatSpread }) {
   const api = useRef()
   useFrame((state, delta) => {
     delta = Math.min(0.1, delta)
@@ -34,12 +35,52 @@ function Sphere({ vec = new THREE.Vector3(), scale, r = THREE.MathUtils.randFloa
       <CylinderCollider rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 1.2 * scale]} args={[0.15 * scale, 0.275 * scale]} />
       {/* <mesh castShadow receiveShadow scale={scale} geometry={sphereGeometry} material={sphereMaterial} /> */}
       <mesh castShadow receiveShadow scale={scale}>
-        <sphereGeometry></sphereGeometry>
-        <MeshDistortMaterial color={"#202020"} envMapIntensity={0.4} clearcoat={0.04} clearcoatRoughness={0} metalness={0.1} />
+        {/* <sphereGeometry></sphereGeometry>
+        <MeshDistortMaterial color={"#202020"} envMapIntensity={0.4} clearcoat={0.04} clearcoatRoughness={0} metalness={0.1} /> */}
+        <WaveTorus />
       </mesh>
     </RigidBody>
   )
 }
+
+function WaveTorus() {
+  const dispRef = useRef(null);
+  const normRef = useRef(null);
+
+  useFrame(({ clock }) => {
+    const esp = clock.getElapsedTime();
+
+    const u_direction_key = Object.keys(normRef.current.uniforms).find((key) =>
+      key.endsWith('direction')
+    );
+    if (u_direction_key) {
+      normRef.current.uniforms[u_direction_key].value.set(
+        1 + Math.sin(esp),
+        1 + Math.sin(esp + Math.PI * 0.5),
+        1 + Math.sin(esp + Math.PI)
+      );
+    }
+
+    const u_offset_key = Object.keys(dispRef.current.uniforms).find((key) =>
+      key.endsWith('offset')
+    );
+    if (u_offset_key) {
+      dispRef.current.uniforms[u_offset_key].value.addScalar(0.005);
+    }
+  });
+
+	return (
+		<Sphere args={[1, 28, 28]}>
+			<LayerMaterial>
+				<Normal ref={normRef} />
+				<Fresnel mode="multiply" intensity={0.9} power={3} bias={0} />
+				<Displace ref={dispRef} mapping="local" type="simplex" strength={0.2} scale={1} />
+				<Noise type="simplex" mapping="local" scale={500} colorA="#fff" mode="overlay" />
+			</LayerMaterial>
+		</Sphere>
+	)
+}
+
 
 function Pointer({ vec = new THREE.Vector3() }) {
   const ref = useRef()
@@ -67,7 +108,7 @@ export default function Index() {
       <directionalLight position={[0, -15, -0]} intensity={4} color="white" />
       <Physics gravity={[0, 0, 0]}>
         <Pointer />
-        {spheres.map((props, i) => <Sphere key={i} {...props} />) /* prettier-ignore */}
+        {spheres.map((props, i) => <LaminaSphere key={i} {...props} />) /* prettier-ignore */}
       </Physics>
       <Environment files="/adamsbridge.hdr" />
       <EffectComposer disableNormalPass multisampling={0}>

@@ -1,6 +1,8 @@
 "use client";
-import { OrbitControls, TorusKnot, Stats } from '@react-three/drei'
-import { Canvas, useFrame } from '@react-three/fiber'
+import * as THREE from "three";
+import { Text, TorusKnot, Stats } from '@react-three/drei'
+import { Physics, RigidBody, BallCollider, RapierRigidBody } from "@react-three/rapier"
+import { Canvas, ReactThreeFiber, useFrame } from '@react-three/fiber'
 import { LayerMaterial, Normal, Fresnel, Displace, Noise } from 'lamina'
 import { Displace as Disp, Normal as Norm } from 'lamina/vanilla'
 import { useRef } from 'react'
@@ -9,7 +11,7 @@ export default function Index() {
 	return (
 		<Canvas
 			camera={{
-				position: [0, 0, 5],
+				position: [0, 0, 8],
 				fov: 50,
 				aspect: window.innerWidth / window.innerHeight,
 				near: 0.1,
@@ -17,8 +19,20 @@ export default function Index() {
 			}}
 			dpr={window.devicePixelRatio}>
 			<color attach="background" args={['#000000']} />
-			<OrbitControls />
-			<WaveTorus />
+			{/* <OrbitControls /> */}
+
+      {/* <Physics gravity={[0, 0, 0]}> */}
+				<WaveTorus />
+      {/* </Physics> */}
+      <Text
+        scale={[0.5, 0.5, 2]}
+				position={[0, 0, 2]}
+        color="white" // default
+        anchorX="center" // default
+        anchorY="middle" // default
+      >
+        HELLO WORLD
+      </Text>
 			<Stats />
 		</Canvas>
 	)

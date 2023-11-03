@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 // import { a } from '@react-spring/web'
 // const Balance = dynamic(() => import("./balance"), {ssr: false})
 
-// const AppScene = dynamic(() => import("./spaciality"), {ssr: false})
+const AppScene = dynamic(() => import("./spaciality"), {ssr: false})
 const Ripple = dynamic(() => import("./ripple"), {ssr: false});
 
 export default function App() {
@@ -23,6 +23,12 @@ export default function App() {
     </main>
   )
 }
+
+  //   // <main>
+  //   // <div className='bg-black h-screen w-screen'>
+  //   //   <AppScene />
+  //   // </div>
+  // </main>
 
     {/* // <Canvas
     //     worker={worker} fallback={<AppScene />}
@@ -39,8 +45,8 @@ export default function App() {
     //    </Canvas>
     // </a.main>
 
-    // <main>
-    //   <div className='h-screen w-screen'>
-    //     <AppScene />
-    //   </div>
-    // </main>
+    <main>
+      <div className='h-screen w-screen'>
+        <AppScene />
+      </div>
+    </main>
