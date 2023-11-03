@@ -8,8 +8,10 @@ const Ripple = dynamic(() => import("./ripple"), {ssr: false});
 export default function App() {
   const { ref, replay } = useScramble({
     text: "HELLO WORLD",
-    speed: 0.5,
-    tick: 5
+    speed: 0.2,
+    tick: 3,
+    seed: 3,
+    overdrive: false,
   })
 
   return (

@@ -1,8 +1,8 @@
 "use client";
 import * as THREE from "three";
-import { Text, TorusKnot, Stats } from '@react-three/drei'
-import { Physics, RigidBody, BallCollider, RapierRigidBody } from "@react-three/rapier"
-import { Canvas, ReactThreeFiber, useFrame } from '@react-three/fiber'
+import { OrbitControls, Torus, Sphere, TorusKnot, Stats } from '@react-three/drei'
+// import { Physics, RigidBody, BallCollider, RapierRigidBody } from "@react-three/rapier"
+import { Canvas, useFrame } from '@react-three/fiber'
 import { LayerMaterial, Normal, Fresnel, Displace, Noise } from 'lamina'
 import { Displace as Disp, Normal as Norm } from 'lamina/vanilla'
 import { useRef } from 'react'
@@ -19,20 +19,9 @@ export default function Index() {
 			}}
 			dpr={window.devicePixelRatio}>
 			<color attach="background" args={['#000000']} />
-			{/* <OrbitControls /> */}
+			<OrbitControls enableZoom={false} enableDamping={true}/>
 
-      {/* <Physics gravity={[0, 0, 0]}> */}
 				<WaveTorus />
-      {/* </Physics> */}
-      {/* <Text
-        scale={[0.5, 0.5, 2]}
-				position={[0, 0, 2]}
-        color="white" // default
-        anchorX="center" // default
-        anchorY="middle" // default
-      >
-        HELLO WORLD
-      </Text> */}
 			<Stats />
 		</Canvas>
 	)
@@ -51,7 +40,7 @@ function WaveTorus() {
 		if (u_direction_key) {
 			normRef.current!.uniforms[u_direction_key].value.set(
 				1 + Math.sin(esp),
-				1 + Math.sin(esp + Math.PI * 0.5),
+				1 + Math.sin(esp + Math.PI * 0.8),
 				1 + Math.sin(esp + Math.PI)
 			)
 		}
