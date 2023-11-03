@@ -1,52 +1,25 @@
 "use client";
 import React from 'react'
 import dynamic from "next/dynamic";
-// import { Canvas } from "@react-three/offscreen"
-// import { Canvas } from '@react-three/fiber'
-// import { Stats } from '@react-three/drei'
-// import { OrbitControls } from '@react-three/drei'
-// import { useSpring } from '@react-spring/core'
-// import { a } from '@react-spring/web'
-// const Balance = dynamic(() => import("./balance"), {ssr: false})
+import { useScramble } from "use-scramble"
 
-const AppScene = dynamic(() => import("./spaciality"), {ssr: false})
 const Ripple = dynamic(() => import("./ripple"), {ssr: false});
 
 export default function App() {
-  // const [{ background }, set] = useSpring({ background: '#f0f0f0'}, [])
+  const { ref, replay } = useScramble({
+    text: "HELLO WORLD",
+    speed: 0.5,
+    tick: 5
+  })
 
   return (
     <main>
-      <div className='h-screen w-screen'>
+      <div className='h-screen w-screen overflow-hidden'>
         <Ripple />
+        <div className='flex items-center justify-center absolute m-auto w-screen top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 uppercase text-2xl text-white'>
+          <h1 ref={ ref } onFocus={replay} onMouseOver={replay} className="text-6xl"/>
+        </div>
       </div>
     </main>
   )
 }
-
-  //   // <main>
-  //   // <div className='bg-black h-screen w-screen'>
-  //   //   <AppScene />
-  //   // </div>
-  // </main>
-
-    {/* // <Canvas
-    //     worker={worker} fallback={<AppScene />}
-    //     shadows dpr={[1, 1.5]} gl={{ antialias: false }} 
-    //     camera={{ position: [0, 0, 15], fov: 17.5, near: 1, far: 20 }} 
-    //     style={{height: 500, borderRadius: 25 }}
-    // /> */}
-
-    // <a.main className="bg-[#f0f0f0] h-screen w-screen">
-    //    <Canvas className="canvas" dpr={[1, 2]}>
-    //      <Balance setBg={set} />
-    //      <OrbitControls enablePan={false} enableZoom={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} />
-    //      <Stats />
-    //    </Canvas>
-    // </a.main>
-
-    <main>
-      <div className='h-screen w-screen'>
-        <AppScene />
-      </div>
-    </main>

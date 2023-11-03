@@ -30,7 +30,8 @@
     "react-dom": "^18",
     "react-spring": "^9.7.3",
     "smoothscroll-polyfill": "^0.4.4",
-    "three": "^0.157.0"
+    "three": "^0.157.0",
+    "use-scramble": "^2.2.12"
   },
   "devDependencies": {
     "@types/node": "^20",

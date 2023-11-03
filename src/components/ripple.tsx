@@ -24,7 +24,7 @@ export default function Index() {
       {/* <Physics gravity={[0, 0, 0]}> */}
 				<WaveTorus />
       {/* </Physics> */}
-      <Text
+      {/* <Text
         scale={[0.5, 0.5, 2]}
 				position={[0, 0, 2]}
         color="white" // default
@@ -32,7 +32,7 @@ export default function Index() {
         anchorY="middle" // default
       >
         HELLO WORLD
-      </Text>
+      </Text> */}
 			<Stats />
 		</Canvas>
 	)
