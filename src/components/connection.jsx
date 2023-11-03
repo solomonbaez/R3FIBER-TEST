@@ -1,11 +1,10 @@
 "use client";
 import * as THREE from 'three'
-import { useRef, useReducer, useMemo, Suspense } from 'react'
+import { useRef, useReducer, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useGLTF, MeshTransmissionMaterial, Environment, Lightformer, Stats, Text, MeshDistortMaterial, ContactShadows} from '@react-three/drei'
+import { useGLTF, MeshTransmissionMaterial, Environment, Lightformer, Stats, Text } from '@react-three/drei'
 import { CuboidCollider, BallCollider, Physics, RigidBody } from '@react-three/rapier'
 import { EffectComposer, N8AO } from '@react-three/postprocessing'
-import { a } from "@react-spring/three";
 import { easing } from 'maath'
 
 const accents = ['#4060ff', '#20ffa0', '#ff4060', '#ffcc00']
@@ -99,7 +98,6 @@ function Pointer({ vec = new THREE.Vector3() }) {
   )
 }
 
-const AnimatedMaterial = a(MeshDistortMaterial)
 function Model({ children, color = 'white', roughness = 0, ...props }) {
   const ref = useRef()
   const { nodes, materials } = useGLTF('/c-transformed.glb')
@@ -107,21 +105,28 @@ function Model({ children, color = 'white', roughness = 0, ...props }) {
     easing.dampC(ref.current.material.color, color, 0.2, delta)
   })
   return (
-      <Suspense fallback={null}>
-        <a.mesh>
-          <sphereGeometry args={[1, 64, 64]} />
-          <AnimatedMaterial color={color} envMapIntensity={env} clearcoat={coat} clearcoatRoughness={0} metalness={0.1} />
-        </a.mesh>
-        <Environment preset="warehouse" />
-        <ContactShadows
-          rotation={[Math.PI / 2, 0, 0]}
-          position={[0, -1.6, 0]}
-          opacity={mode ? 0.8 : 0.4}
-          width={15}
-          height={15}
-          blur={2.5}
-          far={1.6}
-        />
-      </Suspense>
+    <mesh ref={ref} castShadow receiveShadow scale={10} geometry={nodes.connector.geometry}>
+      <meshStandardMaterial metalness={0.2} roughness={roughness} map={materials.base.map} />
+      {children}
+    </mesh>
   )
 }
+useGLTF.preload('/c-transformed.glb')
+
+// function Model(props) {
+//   const { nodes, materials } = useGLTF("/c-cube.glb");
+//   return (
+//     <group {...props} dispose={null}>
+//       <mesh
+//         castShadow
+//         receiveShadow
+//         scale={1}
+//         geometry={nodes.Cube.geometry}
+//       >
+//        <meshStandardMaterial metalness={0.2} roughness={0}/>
+//       </mesh>
+//     </group>
+//   );
+// }
+
+// useGLTF.preload("/c-cube.glb");
