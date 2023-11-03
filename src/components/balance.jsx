@@ -1,7 +1,7 @@
 "use client";
 import * as THREE from 'three'
 import React, { Suspense, useEffect, useState, useRef } from 'react'
-import { useFrame, extend} from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import { PerspectiveCamera, Environment, MeshDistortMaterial, ContactShadows } from '@react-three/drei'
 import { useSpring } from '@react-spring/core'
 import { a } from '@react-spring/three'
